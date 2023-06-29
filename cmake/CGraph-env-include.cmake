@@ -5,7 +5,8 @@
 # 从而解决并兼容了直接引入和三方库引入的路径不匹配问题
 get_filename_component(CGRAPH_PROJECT_CMAKE_DIR "${CMAKE_CURRENT_LIST_FILE}" DIRECTORY)
 set(CGRAPH_PROJECT_ROOT_DIR "${CGRAPH_PROJECT_CMAKE_DIR}/../")
-file(GLOB_RECURSE CGRAPH_PROJECT_SRC_LIST "${CGRAPH_PROJECT_ROOT_DIR}/src/*.cpp")
+file(GLOB_RECURSE CGRAPH_PROJECT_SRC_LIST "${CGRAPH_PROJECT_ROOT_DIR}/src/*.cpp" "${CGRAPH_PROJECT_ROOT_DIR}/src/*.inl")
+file(GLOB_RECURSE CGRAPH_PROJECT_INC_LIST "${CGRAPH_PROJECT_ROOT_DIR}/src/*.h")
 
 IF(APPLE)
     # 非mac平台，暂时不支持自动生成session信息
@@ -33,6 +34,12 @@ ELSEIF(WIN32)
 ENDIF()
 
 # 以下三选一，本地编译执行，推荐OBJECT方式
-add_library(CGraph OBJECT ${CGRAPH_PROJECT_SRC_LIST})      # 通过代码编译
+add_library(CGraph OBJECT)      # 通过代码编译
 # add_library(CGraph SHARED ${CGRAPH_PROJECT_SRC_LIST})    # 编译libCGraph动态库
 # add_library(CGraph STATIC ${CGRAPH_PROJECT_SRC_LIST})    # 编译libCGraph静态库
+
+target_sources(CGraph
+  PRIVATE ${CGRAPH_PROJECT_SRC_LIST}
+  PRIVATE ${CGRAPH_PROJECT_INC_LIST}
+)
+

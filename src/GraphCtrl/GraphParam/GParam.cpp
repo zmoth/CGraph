@@ -26,7 +26,13 @@ CStatus GParam::getBacktrace(std::vector<std::string>& trace) {
 
 
 CVoid GParam::addBacktrace(const std::string& trace) {
-    if (likely(!backtrace_enable_)) {
+    std::cout<<__FUNCTION__<<std::endl;
+    std::cout<<"sizeof(backtrace_enable_) "<<sizeof(this->backtrace_enable_)<<" val "<<this->backtrace_enable_<<std::endl;
+    std::cout<<"sizeof(key_) "<<sizeof(this->key_)<<" val "<< this->key_ <<std::endl;
+    std::cout<<"sizeof(backtrace_) "<<sizeof(this->backtrace_)<<std::endl;
+    std::cout<<"sizeof(backtrace_lock_) "<<sizeof(this->backtrace_lock_)<<std::endl;
+
+    if (likely(!(this->backtrace_enable_))) {
         // 如果没有开启，直接返回即可
         return;
     }

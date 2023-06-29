@@ -23,9 +23,12 @@ CStatus GParamManager::create(const std::string& key, CBool backtrace) {
         return (typeid(*param).name() == typeid(T).name()) ? CStatus() : CStatus("create param duplicate");
     }
 
-    T* ptr = CGRAPH_SAFE_MALLOC_COBJECT(T)
+    T* ptr = CGRAPH_SAFE_MALLOC_COBJECT(T);
     ((GParamPtr)ptr)->backtrace_enable_ = backtrace;
+    std::cout<<"backtrace_enable_("<< ((GParamPtr)ptr)->backtrace_enable_<<") backtrace("<<backtrace<<std::endl;
     ((GParamPtr)ptr)->key_ = key;
+    std::cout<<"key_( "<< ((GParamPtr)ptr)->key_<<" ) key( "<<key<<std::endl;
+
     params_map_.insert(std::pair<std::string, T*>(key, ptr));
     CGRAPH_FUNCTION_END
 }
