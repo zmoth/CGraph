@@ -32,6 +32,9 @@ public:
         T* ptr = nullptr;
         while (!ptr) {
             ptr = new(std::nothrow) T();
+            std::cout << "sizeof(*ptr) " << sizeof(*ptr)
+                      << " | addr " << ptr
+                      << std::endl;
         }
         return ptr;
     }

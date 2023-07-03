@@ -26,16 +26,29 @@ CStatus GParam::getBacktrace(std::vector<std::string>& trace) {
 
 
 CVoid GParam::addBacktrace(const std::string& trace) {
-    std::cout<<__FUNCTION__<<std::endl;
-    std::cout<<"sizeof(backtrace_enable_) "<<sizeof(this->backtrace_enable_)<<" val "<<this->backtrace_enable_<<std::endl;
-    std::cout<<"sizeof(key_) "<<sizeof(this->key_)<<" val "<< this->key_ <<std::endl;
-    std::cout<<"sizeof(backtrace_) "<<sizeof(this->backtrace_)<<std::endl;
-    std::cout<<"sizeof(backtrace_lock_) "<<sizeof(this->backtrace_lock_)<<std::endl;
+    std::cout << "=======================" << std::endl;
+    std::cout << "sizeof(*this) " << sizeof(*this)
+              << " | addr " << this
+              << std::endl;
+    std::cout << "sizeof(backtrace_enable_) " << sizeof(this->backtrace_enable_)
+              << " | addr " << &backtrace_enable_
+              << " | val "<< this->backtrace_enable_
+              << std::endl;
+    std::cout << "sizeof(key_) " <<sizeof(this->key_)
+              << " | addr " << &key_
+              << " | val " << this->key_ 
+              << std::endl;
+    std::cout << "sizeof(backtrace_) " << sizeof(this->backtrace_) << std::endl;
+    std::cout << "sizeof(backtrace_lock_) " <<sizeof(this->backtrace_lock_) << std::endl;
 
     if (likely(!(this->backtrace_enable_))) {
         // 如果没有开启，直接返回即可
+        std::cout << "######### TEST OK #########" << std::endl;
         return;
     }
+
+    std::cout << "######### TEST FAILED #########" << std::endl;
+    return;
 
     // 如果name不为空，则添加name信息。如果name为空，则添加session信息
     backtrace_lock_.lock();

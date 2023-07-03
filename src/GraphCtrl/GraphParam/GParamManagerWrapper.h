@@ -43,9 +43,15 @@ CGRAPH_NAMESPACE_BEGIN
     TGParam* getGParam(const std::string& key) {                                        \
         CGRAPH_ASSERT_NOT_NULL_RETURN_NULL(param_manager_)                              \
         auto param = param_manager_->get<TGParam>(key);                                 \
-        std::cout<<  key << " "<<param<< std::endl;  \
+        std::cout << "key " << key << std::endl;                                        \
         if (nullptr != param) {                                                         \
+            std::cout << "sizeof(*param) " << sizeof(*param)                            \
+                      << " | addr " << param                                            \
+                      << std::endl;                                                     \
             param->addBacktrace(name_.empty() ? session_ : name_);                      \
+            std::cout << "sizeof(*param) " << sizeof(*param)                            \
+                      << " | addr " << param                                            \
+                      << std::endl;                                                     \
         }                                                                               \
         return param;                                                                   \
     }                                                                                   \
